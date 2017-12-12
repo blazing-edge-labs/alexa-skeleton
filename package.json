@@ -1,0 +1,41 @@
+{
+  "name": "alexa-skeleton",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:expose": "node bin/ngrok.js",
+    "dev": "nodemon -r babel-register -r ./env.js index.js",
+    "lint": "standard --verbose | snazzy",
+    "test": "tape -r babel-register -r ./env.js ./spec/*.test.js | tap-spec"
+  },
+  "engines": {
+    "node": "6",
+    "npm": "5"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "alexa-app": "^4.2.0",
+    "lodash": "^4.17.4",
+    "npm-run-all": "^4.1.2",
+    "redux": "^3.7.2",
+    "ssml-builder": "^0.4.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-module-resolver": "^3.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
+    "dotenv-safe": "^4.0.4",
+    "express": "^4.16.2",
+    "ngrok": "^2.2.24",
+    "nodemon": "^1.12.5",
+    "snazzy": "^7.0.0",
+    "standard": "^10.0.3",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.8.0"
+  }
+}

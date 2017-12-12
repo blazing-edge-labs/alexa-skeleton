@@ -1,0 +1,13 @@
+{
+  "intents": [{
+    "intent": "giftIntent",
+    "slots": [{
+      "name": "giftName",
+      "type": "giftNameSlot"
+    }]
+  }, {
+    "intent": "AMAZON.HelpIntent"
+  }, {
+    "intent": "AMAZON.StopIntent"
+  }]
+}
