@@ -32,7 +32,8 @@ function launch (req, res) {
   ])
 
   responder({
-    say: [voiceResponses('launch')]
+    say: [voiceResponses('launch')],
+    reprompt: voiceResponses('launch')
   }, res)
 }
 
