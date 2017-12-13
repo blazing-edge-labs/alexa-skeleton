@@ -8,6 +8,7 @@ const storeService = require('src/store')
 // intents
 const giftIntent = require('src/intents/gift')
 
+// intents which are wrapped need to be included and mapped here
 const intents = {
   giftIntent
 }
