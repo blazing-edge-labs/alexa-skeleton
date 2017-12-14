@@ -7,7 +7,15 @@
     "dev:expose": "node bin/ngrok.js",
     "dev": "nodemon -r babel-register -r ./env.js index.js",
     "lint": "standard --verbose | snazzy",
-    "test": "tape -r babel-register -r ./env.js ./spec/*.test.js | tap-spec"
+    "copy:node_modules": "cp -r node_modules ./dist",
+    "build:index": "babel -d ./dist index.js",
+    "build:src": "babel -d ./dist/src src",
+    "build:zip": "zip -r -X dist.zip dist",
+    "remove:dist": "rm -rf dist",
+    "remove:node_modules": "rm -rf node_modules",
+    "prod:build": "run-s build:index build:src remove:node_modules prod:install copy:node_modules build:zip remove:dist",
+    "test": "tape -r babel-register -r ./env.js ./spec/*.test.js | tap-spec",
+    "prod:install": "npm install --production"
   },
   "engines": {
     "node": "6",
@@ -15,7 +23,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "alexa-app": "^4.2.0",
     "lodash": "^4.17.4",
