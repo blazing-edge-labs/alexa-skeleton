@@ -14,3 +14,8 @@ Run tests
 ```
 NODE_ENV=test npm test
 ```
+
+Build the application for production
+```
+docker run -v "$(pwd)":/var/task lambci/lambda:build-nodejs6.10 npm i && npm run prod:build
+```
