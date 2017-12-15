@@ -11,6 +11,8 @@ function error (err, req, res) {
   req.log.info(err)
   req.log.info(req.data.request)
 
+  // custom reprompts could be added here
+
   responder({
     say: [voiceResponses('error', 'alexaRandom')]
   }, res)

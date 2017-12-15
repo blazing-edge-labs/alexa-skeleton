@@ -1,3 +1,4 @@
+// TODO remove entire file
 const _ = require('lodash')
 
 const errors = require('src/utils/errors')
