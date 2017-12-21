@@ -10,7 +10,7 @@
     "copy:node_modules": "cp -r node_modules ./dist",
     "build:index": "babel -d ./dist index.js",
     "build:src": "babel -d ./dist/src src",
-    "build:zip": "zip -r -X dist.zip dist",
+    "build:zip": "(cd dist && zip -qr9X - *) > dist.zip",
     "remove:dist": "rm -rf dist",
     "remove:node_modules": "rm -rf node_modules",
     "prod:build": "run-s build:index build:src remove:node_modules prod:install copy:node_modules build:zip remove:dist",
