@@ -1,4 +1,3 @@
-// TODO remove entire file
 const _ = require('lodash')
 
 const errors = require('src/utils/errors')
@@ -12,12 +11,6 @@ const giftIntent = require('src/intents/gift')
 // intents which are wrapped need to be included and mapped here
 const intents = {
   giftIntent
-}
-
-function isIncluded (values, slotValue) {
-  return _.find(values, function (value) {
-    return helpers.normalize(value) === helpers.normalize(slotValue)
-  })
 }
 
 function getProperIntentAndSlots (slots, validIntentNames) {
@@ -36,7 +29,7 @@ function getProperIntentAndSlots (slots, validIntentNames) {
 
     _.forEach(slotValues, function (slotValue) {
       _.map(helpers.intentValidSlots[validSlotsName], function (valuesOrFn, key) {
-        if (isIncluded(valuesOrFn, slotValue) || (typeof valuesOrFn === 'function' && valuesOrFn(slotValue))) {
+        if (helpers.isIncluded(valuesOrFn, slotValue) || (typeof valuesOrFn === 'function' && valuesOrFn(slotValue))) {
           respSlots[key] = slotValue
         }
       })
@@ -44,35 +37,6 @@ function getProperIntentAndSlots (slots, validIntentNames) {
   })
 
   return {properIntent, slots: respSlots}
-}
-
-function stripSlots (slots) {
-  const slotKeys = _.keys(slots)
-  const respSlots = {}
-
-  _.forEach(slotKeys, function (slotKey) {
-    respSlots[slotKey] = slots[slotKey].value
-  })
-
-  return respSlots
-}
-
-function areSlotsValid (slots, validSlots) {
-  let slotIsValid = false
-  let slotKeys = _.keys(slots)
-
-  for (let i = 0; i < _.size(slotKeys); i++) {
-    let slotName = slotKeys[i]
-
-    if (isIncluded(validSlots[slotName], slots[slotName]) ||
-      (typeof validSlots[slotName] === 'function' && validSlots[slotName](slots[slotName]))
-    ) {
-      slotIsValid = true
-      break
-    }
-  }
-
-  return slotIsValid
 }
 
 function middleware (intentFn, validSlots = {}) {
@@ -86,9 +50,9 @@ function middleware (intentFn, validSlots = {}) {
     const allowedIntents = store.get('mainReducer.allowedIntents')
 
     if (_.includes(allowedIntents, intentName)) {
-      const strippedSlots = stripSlots(req.slots)
+      const strippedSlots = helpers.stripSlots(req.slots)
 
-      if (_.size(req.slots) && !areSlotsValid(strippedSlots, validSlots)) {
+      if (_.size(req.slots) && !helpers.areSlotsValid(strippedSlots, validSlots)) {
         return handlers.error(errors.invalidIntent, req, res)
       }
 
