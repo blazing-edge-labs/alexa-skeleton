@@ -4,7 +4,8 @@ const Alexa = require('alexa-app').app
 const amazonIntents = require('src/intents/amazon')
 const handlers = require('src/handlers')
 const helpers = require('src/utils/helpers')
-const middleware = require('src/utils/middleware')
+const storeWrapper = require('src/utils/store')
+const validation = require('src/utils/validation')
 
 const {NODE_ENV} = process.env
 const app = new Alexa()
@@ -26,11 +27,12 @@ const allCustomIntents = [{
   validSlots: helpers.intentValidSlots.gift
 }]
 
-// register custom intents and wrap under the middleware function
+// register custom intents
+// run validation
+// add the store
 _.forEach(allCustomIntents, function (customIntentData) {
-  app.intent(customIntentData.intentName, middleware(
-    customIntentData.intentFn,
-    customIntentData.validSlots
+  app.intent(customIntentData.intentName, storeWrapper(
+    validation(customIntentData.intentFn, customIntentData.validSlots)
   ))
 })
 

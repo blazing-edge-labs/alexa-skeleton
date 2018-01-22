@@ -75,7 +75,7 @@ store.dispatch(actions.main.updateAllowedIntents([helpers.intents.giftIntent]))
 ```
 *A note here! You should never limit the user! This is just branching, if the user wants to reset the skill or stop you need to allow this. Also remember that Alexa can put values which are not part of your defined slots and this function will error out if the value is not predefined.*
 
-All the intents wrapped with the `middleware` function need to be included in the intents object on line 12. In the example below we just have the `giftIntent`.
+All the intents wrapped with the `middleware` function need to be included in the intents object on line 13. In the example below we just have the `giftIntent`.
 ```
 const intents = {
   giftIntent
