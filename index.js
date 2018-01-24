@@ -10,15 +10,13 @@ const validation = require('src/utils/validation')
 const {NODE_ENV} = process.env
 const app = new Alexa()
 
-_.assign(app, {
-  error: handlers.error,
-  launch: handlers.launch,
-  post: handlers.post,
-  pre: handlers.pre
-})
+app.error = handlers.error
+app.post = handlers.post
+app.pre = handlers.pre
 
-app.intent(helpers.intents.AMAZON.help, amazonIntents.help)
-app.intent(helpers.intents.AMAZON.stop, amazonIntents.stop)
+app.launch(handlers.launch)
+app.intent(helpers.intents.AMAZON.helpIntent, amazonIntents.help)
+app.intent(helpers.intents.AMAZON.stopIntent, amazonIntents.stop)
 
 // custom intents go here
 const allCustomIntents = [{
