@@ -21,7 +21,7 @@ Top level folders:
 The utils folder has some flavour functions which are rather important for the skeleton.
 ##### responder
 This function formats the final response. Here is an example where we want to say two phrases, attach a directive and **not** end the current session:
-```
+```javascript
   responder({
     say: [
         voiceResponses('gift.001'),
@@ -33,7 +33,7 @@ This function formats the final response. Here is an example where we want to sa
 ```
 The responder will concat the two voice responses into one, add the directive from the templates, add the proper reprompt and **not** end the session. The `gift.001` is a custom response defined in the `responses/alexa.js` file.
 Here is another example where we would like to stop the session:
-```
+```javascript
   responder({
     say: [voiceResponses('stop')],
     directive: templates.backgroundImage('stop'),
@@ -43,7 +43,7 @@ Here is another example where we would like to stop the session:
 Again the `stop` string is a custom response defined in the `responses/alexa.js` file.
 #### helpers
 Contains all the intent names and valid slots, along with some functions used throught the skill. An example is shown below:
-```
+```javascript
 const intents = {
   AMAZON: {
     helpIntent: 'AMAZON.HelpIntent',
@@ -70,13 +70,13 @@ The *middleware* parameters are:
 - **valid intent slots** - all the slots and possible values for the slots. An example slot can be found in the `src/utils/helpers.js`
 
 Using the store you define which intents should be called next. An example, where we want to trigger the gift intent and not some other similar intent which has the same utterances:
-```
+```javascript
 store.dispatch(actions.main.updateAllowedIntents([helpers.intents.giftIntent]))
 ```
 *A note here! You should never limit the user! This is just branching, if the user wants to reset the skill or stop you need to allow this. Also remember that Alexa can put values which are not part of your defined slots and this function will error out if the value is not predefined.*
 
 All the intents wrapped with the `middleware` function need to be included in the intents object on line 13. In the example below we just have the `giftIntent`.
-```
+```javascript
 const intents = {
   giftIntent
 }
@@ -84,23 +84,23 @@ const intents = {
 
 ## Development
 Run locally:
-```
+```bash
 HOST=localhost PORT=3000 npm run dev
 ```
 *The HOST and PORT variables are only needed locally, so there was no point in adding them to the .env.example*
 Expose the local environment with ngrok:
-```
+```bash
 HOST=localhost PORT=3000 npm run dev:expose
 ```
 *You need to use the same HOST and PORT variables with which you started the application*
 
 Run tests:
-```
+```bash
 NODE_ENV=test npm test
 ```
 
 Build the application for production
-```
+```bash
 docker run -v "$(pwd)":/var/task lambci/lambda:build-nodejs6.10 npm i && npm run prod:build
 ```
 
